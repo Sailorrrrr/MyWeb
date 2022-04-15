@@ -7,9 +7,11 @@ from PIL import Image
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route('/mnist', methods=['GET', 'POST'])
 def mnist():
@@ -26,7 +28,8 @@ def mnist():
         with open(mpath,'rb') as f:
             model = pickle.load(f)
         pred = model.predict(img)
-        return "성공!!" + str(pred) 
+        return render_template('mnistresult.html',data=pred)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
